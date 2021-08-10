@@ -20,6 +20,6 @@ public class Employee {
 	private int salary;
 	private String gender;
 	private String team;
-	private EmployeeAddress address;
+	//private EmployeeAddress address;
 
 }
