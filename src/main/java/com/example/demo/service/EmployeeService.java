@@ -1,40 +1,34 @@
 package com.example.demo.service;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.validation.Valid;
+
+import org.json.simple.parser.ParseException;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.Employee;
-import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.entity.Employee;
+import com.example.demo.entity.request.EmployeeCreateRequest;
+import com.example.demo.entity.request.EmployeeUpdateRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Service
-public class EmployeeService {
-	
-	final static Logger logger = LoggerFactory.getLogger(EmployeeService.class);
+public interface EmployeeService {
 
-	@Autowired
-	private EmployeeRepository employeeRepository;
+	public Employee createNewEmployee(EmployeeCreateRequest employee);
 
-	public String createNewEmployee(Employee employee) {
-		employeeRepository.save(employee);
-		return "Employee Added Successfully with id:- " + employee.getId();
-	}
+	public List<Employee> getAllEmployees(Pageable pageable);
 
-	public List<Employee> getAllEmployees() {
-		return employeeRepository.findAll();
-	}
+	public Employee getExistingEmployee(String id);
 
-	public Optional<Employee> getExistingEmployee(int id) {
-		return employeeRepository.findById(id);
-	}
+	public void deleteExistingEmployee(String id);
 
-	public String deleteExistingEmployee(int id) {
-		employeeRepository.deleteById(id);
-		return "Employee Deleted Successfully with id:- " + id;
-	}
+	public Employee updateEmployee(@Valid EmployeeUpdateRequest request, String id)
+			throws JsonProcessingException, ParseException;
+
+	public List<Employee> searchMultiField(String name, Pageable pageable) throws IOException;
 
 }
