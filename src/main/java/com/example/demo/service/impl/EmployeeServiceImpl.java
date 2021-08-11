@@ -51,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-	public EmployeeServiceImpl(@Qualifier("client") RestHighLevelClient esClient) {
+	public EmployeeServiceImpl(@Qualifier("esClient") RestHighLevelClient esClient) {
 		this.client = esClient;
 		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
