@@ -33,26 +33,22 @@ public class EmployeeControllerImpl implements EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@RequestMapping(value = "employee/create", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<ModelMap> createEmployee(@RequestBody EmployeeCreateRequest employee) {
 		Employee empl = employeeService.createNewEmployee(employee);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new ModelMap().addAttribute("id", empl.getId()));
 
 	}
 
-	@RequestMapping(value = "employee/fetchAll", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Employee>> fetchAllEmployee(Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAllEmployees(pageable));
 
 	}
 
-	@RequestMapping(value = "employee/fetchBy/{id}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<Employee> fetchEmployee(@PathVariable String id) {
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.getExistingEmployee(id));
 
 	}
 
-	@RequestMapping(value = "employee/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
 	public ResponseEntity<Void> deleteEmployee(@PathVariable String id) {
 		employeeService.deleteExistingEmployee(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -65,7 +61,6 @@ public class EmployeeControllerImpl implements EmployeeController {
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.updateEmployee(request, id));
 	}
 
-	@GetMapping("/searchMultiField/{firstname}/{age}")
 	public ResponseEntity<List<Employee>> serachByMultiField(@PathVariable String name, Pageable pageable)
 			throws IOException {
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.searchMultiField(name, pageable));

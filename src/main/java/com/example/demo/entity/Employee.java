@@ -34,10 +34,17 @@ public class Employee extends EmployeeAddress implements Serializable {
 	@NotBlank
 	@JsonProperty("name")
 	private String name;
-
+	@NotBlank
+	@JsonProperty("salary")
 	private Double salary;
+	@NotBlank
+	@JsonProperty("gender")
 	private String gender;
+	@NotBlank
+	@JsonProperty("team")
 	private String team;
+	@NotBlank
+	@JsonProperty("isDeleted")
 	private boolean isDeleted;
 
 }
